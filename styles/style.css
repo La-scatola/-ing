@@ -1,6 +1,6 @@
 ﻿body{
 	background: url("../images/bg0.jpg"); 
-	background-repeat:no-repeat;
+	background-repeat:repeat-y;
 	background-attachment: fixed;
 	background-size:100%;
 	font-size:10pd;
