@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>动漫</title>
+		<link rel="stylesheet" href="styles/style.css" type="text/css" />
+		<script language="javascript">
+		function Tab(num)
+		{
+			var i;
+			for(i=0;i<=7;i++)
+			{
+				if(i==num){
+					document.getElementById("a"+i).style.display="block";
+					document.getElementById("w"+i).style.color="#fff";
+					document.getElementById("w"+i).style.background="pink";
+					document.getElementById("w"+i).style.borderRadius="0 0 10px 10px";
+
+				}else{
+					document.getElementById("a"+i).style.display="none";
+					document.getElementById("w"+i).style.color="#5cf";
+					document.getElementById("w"+i).style.background="#fff";
+
+				}
+			}
+		}
+			window.onload = function () {
+				var imgs_div = document.getElementById("imgs");
+				var btn_div = document.getElementById("btn");
+				//获取到图片轮播的ul对象数组
+				var imgsUl = imgs_div.getElementsByTagName("ul")[0];
+				//获取到远点的ul对象数组
+				var btn = btn_div.getElementsByTagName("ul")[0];
+				//上一个
+				var prious = document.getElementById("preous");
+				//下一个
+				var next = document.getElementById("next");
+				var timer;
+				var animTimer;
+				var index = 1;
+				play();
+				prious.onclick = function () {
+					initImgs(index);
+					index -= 1;
+					if (index < 1) {
+						index = 6;
+					}
+					animate(960);
+					btnShow(index);
+				}
+				next.onclick = function () {
+					initImgs(index);
+					index += 1;
+					if (index > 6) {
+						index = 1;
+					}
+					animate(-960);
+					btnShow(index);
+				}
+				function animate(offset) {
+					var newLeft = parseInt(imgsUl.offsetLeft) + offset;
+					// imgsUl.style.left=newLeft;
+					// console.log("定时器外面:此时offsetLeft"+imgsUl.offsetLeft+">>newLeft:"+newLeft);
+					if (newLeft > -960) {
+						// imgsUl.style.left=-5760+"px";
+						donghua(-5760);
+					} else if (newLeft < -5760) {
+						// imgsUl.style.left=-960+"px";
+						donghua(-960);
+					} else {
+						donghua(newLeft);
+					}
+				}
+				function donghua(offset) {
+					clearInterval(animTimer);
+					animTimer = setInterval(function () {
+							imgsUl.style.left = imgsUl.offsetLeft + (offset - imgsUl.offsetLeft) / 10 + "px";
+							if (imgsUl.offsetLeft - offset < 10 && imgsUl.offsetLeft - offset > -10) { //如果偏移量已经等于指定好的偏移量，则秦楚定时器
+								imgsUl.style.left = offset + "px";
+								clearInterval(animTimer);
+								//开启定时轮播
+								play();
+							}
+						}, 15);
+				}
+				function initImgs(cur_index) {
+					clearInterval(timer);
+					clearInterval(animTimer);
+					var off = cur_index * 960;
+					imgsUl.style.left = -off + "px";
+				}
+				function play() {
+					timer = setInterval(function () {
+							next.onclick();
+						}, 2000)
+				}
+				function btnShow(cur_index) {
+					var list = btn.children;
+					for (var i = 0; i < btn.children.length; i++) {
+						btn.children[i].className = "hidden";
+					}
+					btn.children[cur_index - 1].className = "current";
+				}
+				for (var i = 0; i < btn.children.length; i++) {
+					btn.children[i].index = i;
+					var sd = btn.children[i].index;
+					btn.children[i].onmouseover = function () {
+						index = this.index + 1;
+						initImgs(this.index + 1);
+						btnShow(this.index + 1);
+					}
+					btn.children[i].onmouseout = function () {
+						play();
+					}
+				}
+
+			}
+		</script>
+	</head>
+	<body >
+		<div class="nav">
+			<div id="logo"></div>
+			<p><a href="">登陆</a>/<a href="">注册</a></p>
+			<ul>
+				<a href=""><li>首页</li></a>
+				<a href=""><li>资讯</li></a>
+				<a href=""><li>教程</li></a>
+				<a href=""><li>会员</li></a>
+				<a href=""><li>我的</li></a>
+				<a href=""><li>关于</li></a>
+			</ul>
+
+			<div class="search">
+				<form>
+					<input type="text" class="input"/>
+					<button class="ts">搜索</button>
+				</form>
+			</div>
+		</div>
+
+		
+		<div class="banner">
+			<div id="imgs">
+				<ul>
+					<li><a href=""><img src="images/banner6.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner12.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner8.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner16.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner7.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner15.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner6.jpg" alt=""></a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<div id="btn">
+				<ul>
+					<li id="btn1" class="current" >.</li>	
+					<li id="btn2" >.</li>
+					<li id="btn3" >.</li>
+					<li id="btn4" >.</li>
+					<li id="btn5" >.</li>
+					<li id="btn6" >.</li>
+				</ul>
+			</div>
+			<div id="preous"><</div>
+			<div id="next">></div>
+		</div>
+		<div class="page">
+			<div class="flex">
+			<div class="title-1">一周新番<a href="">更多</a></div>
+			<div class="title-2">排行榜<a href="">更多</a></div>
+			</div>
+			<div class="flex">
+				<div class="update-table">
+				<div class="tab">
+					<h2>
+						<ul>
+							<li id="w0" onclick="Tab(0)">最新</li>
+							<li id="w1" onclick="Tab(1)">周一</li>
+							<li id="w2" onclick="Tab(2)">周二</li>
+							<li id="w3" onclick="Tab(3)">周三</li>
+							<li id="w4" onclick="Tab(4)">周四</li>
+							<li id="w5" onclick="Tab(5)">周五</li>
+							<li id="w6" onclick="Tab(6)">周六</li>
+							<li id="w7" onclick="Tab(7)">周日</li>
+						</ul>
+					</h2>
+				</div>
+				<div class="animes" id="a0">
+					<div class="anim"><a href=""><img alt="狐妖小红娘" src="images//狐妖小红娘.png"/></a><h5><a href="">狐妖小红娘</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="凸变英雄BABA" src="images//凸变英雄BABA.png"/></a><h5><a href="">凸变英雄BABA</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="迷域行者" src="images//谜域行者.png"/></a><h5><a href="">迷域行者</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="宿舍不日常" src="images//宿舍不日常.png"/></a><h5><a href="">宿舍不日常</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="画江湖之侠岚" src="images//画江湖之侠岚.png"/></a><h5><a href="">画江湖之侠岚</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="刺客伍六七" src="images//刺客伍六七.png"/></a><h5><a href="">刺客伍六七</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+				<div class="animes" id="a1">
+					<div class="anim"><a href=""><img alt="斗罗大陆2绝世唐门" src="images//斗罗大陆2绝世唐门.png"/></a><h5><a href="">斗罗大陆2绝世唐门</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="无聊诗社" src="images//无聊诗社.png"/></a><h5><a href="">无聊诗社</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+				<div class="animes" id="a2">
+					<div class="anim"><a href=""><img alt="凸变英雄BABA" src="images//凸变英雄BABA.png"/></a><h5><a href="">凸变英雄BABA</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="实验品家庭" src="images//实验品家庭.png"/></a><h5><a href="">实验品家庭</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="宿舍不日常" src="images//宿舍不日常.png"/></a><h5><a href="">宿舍不日常</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="茶啊二中第四季" src="images//茶啊二中第四季.png"/></a><h5><a href="">茶啊二中 第四季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="寻师伏魔录第二季" src="images//寻师伏魔录第二季.png"/></a><h5><a href="">寻师伏魔录 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="琥珀虚颜" src="images//琥珀虚颜.png"/></a><h5><a href="">琥珀虚颜</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="Gon的旱獭第二季" src="images//Gon的旱獭第二季.png"/></a><h5><a href="">Gon的旱獭 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+				<div class="animes" id="a3">
+					<div class="anim"><a href=""><img alt="我家大师兄脑子有坑" src="images//我家大师兄脑子有坑.png"/></a><h5><a href="">我家大师兄脑子有坑</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="我是江小白" src="images//我是江小白.png"/></a><h5><a href="">我是江小白</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="万界仙踪" src="images//万界仙踪.png"/></a><h5><a href="">万界仙踪</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="幻界王" src="images//幻界王.png"/></a><h5><a href="">幻界王</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="食神魂第二季" src="images//食神魂第二季.png"/></a><h5><a href="">食神魂第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="王者歪传" src="images//王者歪传.png"/></a><h5><a href="">王者歪传</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="吃鸡大作战" src="images//吃鸡大作战.png"/></a><h5><a href="">吃鸡大作战</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="刺客伍六七" src="images//刺客伍六七.png"/></a><h5><a href="">刺客伍六七</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+				<div class="animes" id="a4">
+					<div class="anim"><a href=""><img alt="我的逆天神器" src="images//我的逆天神器.png"/></a><h5><a href="">我的逆天神器</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="画江湖之换世门生" src="images//画江湖之换世门生.png"/></a><h5><a href="">画江湖之换世门生</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="银之守墓人" src="images//银之守墓人.png"/></a><h5><a href="">银之守墓人</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="叫我僵小鱼日常篇" src="images//叫我僵小鱼日常篇.png"/></a><h5><a href="">叫我僵小鱼日常篇</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="切尔诺贝利之春" src="images//切尔诺贝利之春.png"/></a><h5><a href="">切尔诺贝利之春</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="暮光幻影" src="images//暮光幻影.png"/></a><h5><a href="">暮光幻影</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="逆光之颤" src="images//逆光之颤.png"/></a><h5><a href="">逆光之颤</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="天行九歌" src="images//天行九歌.png"/></a><h5><a href="">天行九歌</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+				<div class="animes" id="a5">
+					<div class="anim"><a href=""><img alt="狐妖小红娘" src="images//狐妖小红娘.png"/></a><h5><a href="">狐妖小红娘</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="一人之第二季" src="images//一人之下第二季.png"/></a><h5><a href="">一人之下 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="全职高手 特别篇" src="images//全职高手特别篇.png"/></a><h5><a href="">全职高手 特别篇</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="梦塔·雪谜城" src="images//梦塔.png"/></a><h5><a href="">梦塔·雪谜城</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="画江湖之侠岚" src="images//画江湖之侠岚.png"/></a><h5><a href="">画江湖之侠岚</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="灵契 第二季" src="images//灵契第二季.png"/></a><h5><a href="">灵契 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="峡谷重案组 第二季" src="images//峡谷重案组第二季.png"/></a><h5><a href="">峡谷重案组 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="哈哈滑小稽" src="images//哈哈滑小稽.png"/></a><h5><a href="">哈哈滑小稽</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="大食谱" src="images//大食谱.png" /><h5><a href="">大食谱</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="黄金屋" src="images//黄金屋.png"/></a><h5><a href="">黄金屋</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+				<div class="animes" id="a6">
+					<div class="anim"><a href=""><img alt="斗罗大陆2绝世唐门" src="images//斗罗大陆2绝世唐门.png"/></a><h5><a href="">斗罗大陆2绝世唐门</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="阴阳师?平安物语" src="images//阴阳师平安物语.png"/></a><h5><a href="">阴阳师·平安物语</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="迷域行者" src="images//谜域行者.png"/></a><h5><a href="">迷域行者</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="妖神记" src="images//妖神记.png"/></a><h5><a href="">妖神记</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href=""><img alt="二二二哈企" src="images//二二二哈企.png"/></a><h5><a href="">二二二哈企</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+
+
+				</div>
+				<div class="animes" id="a7">
+					<div class="anim"><a href=""><img alt="山海师" src="images//山海师.png"/></a><h5><a href="">山海师</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				</div>
+
+			</div>
+
+			<div class="intro">
+				<ol>
+					<li><span>1</span><a href="">狐妖小红娘</a></li>
+					<li><span>2</span><a href="">我家大师兄脑子有坑</a></li>
+					<li><span>3</span><a href="">凸变英雄 LEAF</a></li>
+					<li><span>4</span><a href="">一人之下 第二季</a></li>
+					<li><span>5</span><a href="">阴阳师?平安物语</a></li>
+					<li><span>6</span><a href="">斗罗大陆2绝世唐门</a></li>
+					<li><span>7</span><a href="">镇魂街 第一季</a></li>
+					<li><span>8</span><a href="">刺客伍六七</a></li>
+					<li><span>9</span><a href="">凸变英雄 BABA</a></li>
+					<li><span>10</span><a href="">一人之下</a></li>
+				</ol>
+			</div>
+			</div>
+			<div class="title-3">日番推荐<a href="">更多</a></div>
+			<div class="recom">
+				<div class="flex">
+					<div class="table"><div class="hovered"><h4>命运石之门</h4></div></div>
+					<div class="table"><div class="hovered"></div></div>
+					<div class="table"><div class="hovered"></div></div>
+					<div class="table"><div class="hovered"></div></div>
+				</div>
+			</div>
+			</div>
+			<footer>
+			@@@@@@@@@@@@@@@@@@@@@@@@@
+			</footer>
+
+	</body>
+	</html>
