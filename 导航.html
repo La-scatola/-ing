@@ -4,6 +4,7 @@
 		<title>动漫</title>
 		<link rel="stylesheet" href="styles/style.css" type="text/css" />
 		<script language="javascript">
+		//选项卡函数
 		function Tab(num)
 		{
 			var i;
@@ -23,6 +24,7 @@
 				}
 			}
 		}
+		//轮播图
 			window.onload = function () {
 				var imgs_div = document.getElementById("imgs");
 				var btn_div = document.getElementById("btn");
@@ -43,6 +45,7 @@
 					index -= 1;
 					if (index < 1) {
 						index = 6;
+						initImgs(7);
 					}
 					animate(960);
 					btnShow(index);
@@ -52,6 +55,7 @@
 					index += 1;
 					if (index > 6) {
 						index = 1;
+						initImgs(0);
 					}
 					animate(-960);
 					btnShow(index);
@@ -74,7 +78,7 @@
 					clearInterval(animTimer);
 					animTimer = setInterval(function () {
 							imgsUl.style.left = imgsUl.offsetLeft + (offset - imgsUl.offsetLeft) / 10 + "px";
-							if (imgsUl.offsetLeft - offset < 10 && imgsUl.offsetLeft - offset > -10) { //如果偏移量已经等于指定好的偏移量，则秦楚定时器
+							if (imgsUl.offsetLeft - offset < 10 && imgsUl.offsetLeft - offset > -10) { //如果偏移量已经等于指定好的偏移量，则清楚定时器
 								imgsUl.style.left = offset + "px";
 								clearInterval(animTimer);
 								//开启定时轮播
@@ -115,11 +119,230 @@
 
 			}
 		</script>
+		<script type = "text/javascript" >
+			function checkusename_onblur(usename) {
+				var reg = /^1[0-9]{10}/;
+				if (!reg.test(usename.value)) {
+					alert("请正确填写手机号！");
+					usename.value = "";
+				}
+			}
+
+			function checkpassword() {
+				var password = document.getElementById("password").value;
+				return true;
+			}
+
+			function checkmybutton_onclick_log() {
+				if (document.all("usename").value == "") {
+					alert("手机号不能为空!");
+					document.all("usename").focus();
+					return false;
+				} else if (document.all("password").value == "") {
+					alert("密码不能为空!");
+					document.all("password").focus();
+					return false;
+				} else if (document.all("usename").value != "" && document.all("password").value != "") {
+					alert("登陆成功");
+				}
+
+			}
+			function cancel_onclick_log() {
+				var log = document.querySelector(".log");
+				log.style.display = "none";
+			}
+			function block_onclick_log() {
+				var log = document.querySelector(".log");
+				log.style.display = "block";
+			}
+			function cancel_onclick_reg() {
+				var log = document.querySelector(".reg");
+				log.style.display = "none";
+			}
+			function block_onclick_reg() {
+				var log = document.querySelector(".reg");
+				log.style.display = "block";
+			}
+		</script >
+		<script type = "text/javascript" >
+			function showDesc(obj) {
+				var id = obj.name;
+				document.getElementById(id).style.display = "inline";
+			}
+			//输入框失去焦点时检验输入内容是否有效
+
+			function checkText(obj) {
+				//获取输入框的id值
+				var id = obj.name;
+				var text = document.getElementById(id.toString().toUpperCase()).value;
+
+				//判断是否为空
+				if (text.replace(/\s/g, "") == "") {
+					document.getElementById(id).innerHTML = "输入不能为空";
+				} else {
+					//组装方法
+					//取首字母转换为大写,其余不变
+					var firstChar = id.charAt(0).toString().toUpperCase();
+					//
+					var strsub = id.substring(1, id.length);
+					var strMethod = "check" + firstChar + strsub + "()";
+					var isTrue = eval(strMethod);
+					if (isTrue) {
+						document.getElementById(id).innerHTML = "输入有效";
+					}
+				}
+
+			}
+
+			function checkPassword2() {
+				var id = document.getElementById("password");
+				var id2 = document.getElementById("password2");
+				var password = id.value;
+				var password2 = id2.value;
+				if (password != password2) {
+					document.getElementById(id.name).innerHTML = "密码不一致";
+					return false;
+				}
+				return true;
+			}
+
+			function chooseradio() {
+				if (document.all("xy").checked) {
+					document.all("xy").disabled = true;
+					document.all("ha").disabled = false;
+					document.all("gx").disabled = false;
+					document.all("mx").disabled = false;
+					document.all("tl").disabled = false;
+					document.all("lb").disabled = false;
+				}
+				if (document.all("ha").checked) {
+					document.all("xy").disabled = false;
+					document.all("ha").disabled = true;
+					document.all("gx").disabled = false;
+					document.all("mx").disabled = false;
+					document.all("tl").disabled = false;
+					document.all("lb").disabled = false;
+				}
+				if (document.all("gx").checked) {
+					document.all("xy").disabled = false;
+					document.all("ha").disabled = false;
+					document.all("gx").disabled = true;
+					document.all("mx").disabled = false;
+					document.all("tl").disabled = false;
+					document.all("lb").disabled = false;
+				}
+				if (document.all("mx").checked) {
+					document.all("xy").disabled = false;
+					document.all("ha").disabled = false;
+					document.all("gx").disabled = false;
+					document.all("mx").disabled = true;
+					document.all("tl").disabled = false;
+					document.all("lb").disabled = false
+				}
+				if (document.all("tl").checked) {
+					document.all("xy").disabled = false;
+					document.all("ha").disabled = false;
+					document.all("gx").disabled = false;
+					document.all("mx").disabled = false;
+					document.all("tl").disabled = true;
+					document.all("lb").disabled = false;
+				}
+				if (document.all("lb").checked) {
+					document.all("xy").disabled = false;
+					document.all("ha").disabled = false;
+					document.all("gx").disabled = false;
+					document.all("mx").disabled = false;
+					document.all("tl").disabled = false;
+					document.all("lb").disabled = true;
+				}
+			}
+
+			function checkmybutton_onclick_reg() {
+				if (document.all("usename").value == "") {
+					alert("手机号不能为空!");
+					document.all("usename").focus();
+					return false;
+				} else if (document.all("password").value == "") {
+					alert("密码不能为空!");
+					document.all("password").focus();
+					return false;
+				} else if (document.all("password2").value == "") {
+					alert("密码不能为空");
+					document.all("password2").focus();
+					return false;
+				} else if (document.all("usename").value != "" && document.all("password").value != "" && document.all("password2").value != "") {
+					alert("注册信息成功");
+				}
+
+			}
+		</script >
 	</head>
 	<body >
+		<!-- 导航栏 -->
 		<div class="nav">
-			<div id="logo"></div>
-			<p><a href="">登陆</a>/<a href="">注册</a></p>
+			<div id="logo"></div>		<!-- logo	 -->
+			<p><a onclick="block_onclick_log();">登陆</a>/<a onclick="block_onclick_reg();">注册</a></p>
+			<form class="log" name="log" action="">
+				<h2>登陆</h2>
+				<div class="log1">
+				<label for="uesname">账号：</label>
+				<input type="tel" name="usename" id="usename" onblur="checkusename_onblur(this)" title="请输入用户名,为手机号，只能是数字" autofocus>
+				</div>
+				<div class="log1">
+				<label for="password">密码：</label>
+				<input name="password" id="password" type="password" onblur="checkPassword（）" title="请输入密码,可以输入英文、汉字和字母"/>
+				</div>
+
+				<div class="button">
+				<input type="submit" value="提交" title="提交登陆" onclick="checkmybutton_onclick_log();"  /> 
+				<input type="submit" value="取消" title="取消登陆" onclick="cancel_onclick_log();"  />  
+				</div>
+			</form>
+			<form class="reg" name="reg" action="">
+				<h2>注册</h2>
+				<div class="reg_left">
+				<div class="log1">
+				<label for="uesname">手机号码：</label>
+				<input type="tel" name="usename" onblur="checkusename_onblur(this)" title="请输入用户名,为手机号，只能是数字" autofocus>
+				</div>
+				<div class="log1">
+				<label for="password">输入密码：</label>
+				<input name="password" id="password" type="password" onfocus="showDesc(this)" onblur="checkText(this)" title="请输入密码,可以输入英文、汉字和字母">
+				</div>
+				<div class="log1">
+				<label for="password2">确认密码：</label>
+				<input name="password2"id="password2" type="password" onfocus="showDesc(this)" onblur="checkPassword2(this)" title="请输入与首次相同的密码">
+				</div>
+				</div >
+				<div class="reg_right">
+					
+					<div class="radio">
+					<h4>选择您最喜欢的动漫类型：</h4>
+					<input type="radio" name="radio1" id="xh" value="校园" onclick="chooseradio();return true;"/>校园
+					<input type="radio" name="radio1" id="ha" value="热血" onclick="chooseradio();return true;"/>热血
+					<input type="radio" name="radio1" id="gx" value="搞笑" onclick="chooseradio();return true;"/>搞笑<br>
+					<input type="radio" name="radio1" id="mx" value="冒险" onclick="chooseradio();return true;"/>冒险
+					<input type="radio" name="radio1" id="tl" value="推理" onclick="chooseradio();return true;"/>推理
+					<input type="radio" name="radio1" id="lb" value="少女" onclick="chooseradio();return true;"/>少女<br>
+					</div>
+					<div class="select">
+						<h4>选择您最喜欢的动漫类型：</h4>
+						<span>年限:  </span>
+							<select name="select" id="select" >
+								<option value="0" selected="selected"></option>
+								<option value="1">1年以下</option>
+								<option value="2">3-5年</option>
+								<option value="3">5年以上</option>
+							</select>
+					</div>
+				</div>
+				<div class="button">
+					<input type="submit" value="提交" title="提交注册" onclick="checkmybutton_onclick_reg();" style="color:#FF0000;">
+					<input type="reset" value="重置" title="重置表单" />  
+					<input type="submit" value="取消" title="取消登陆" onclick="cancel_onclick_reg();"/>  
+				</div>
+			
+			</form>
 			<ul>
 				<a href=""><li>首页</li></a>
 				<a href=""><li>资讯</li></a>
@@ -129,7 +352,7 @@
 				<a href=""><li>关于</li></a>
 			</ul>
 
-			<div class="search">
+			<div class="search">     <!-- 搜索框 -->
 				<form>
 					<input type="text" class="input"/>
 					<button class="ts">搜索</button>
@@ -137,7 +360,7 @@
 			</div>
 		</div>
 
-		
+		<!-- banner部分，轮播图 -->
 		<div class="banner">
 			<div id="imgs">
 				<ul>
@@ -148,6 +371,7 @@
 					<li><a href=""><img src="images/banner7.jpg" alt=""></a></li>
 					<li><a href=""><img src="images/banner15.jpg" alt=""></a></li>
 					<li><a href=""><img src="images/banner6.jpg" alt=""></a></li>
+					<li><a href=""><img src="images/banner12.jpg" alt=""></a></li>
 				</ul>
 			</div>
 			<div class="clear"></div>
@@ -164,13 +388,15 @@
 			<div id="preous"><</div>
 			<div id="next">></div>
 		</div>
+		
+		<!-- 页面主题page -->
 		<div class="page">
 			<div class="flex">
 			<div class="title-1">一周新番<a href="">更多</a></div>
 			<div class="title-2">排行榜<a href="">更多</a></div>
 			</div>
 			<div class="flex">
-				<div class="update-table">
+				<div class="update-table">      <!-- 更新表 -->
 				<div class="tab">
 					<h2>
 						<ul>
@@ -185,28 +411,28 @@
 						</ul>
 					</h2>
 				</div>
-				<div class="animes" id="a0">
-					<div class="anim"><a href=""><img alt="狐妖小红娘" src="images//狐妖小红娘.png"/></a><h5><a href="">狐妖小红娘</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="凸变英雄BABA" src="images//凸变英雄BABA.png"/></a><h5><a href="">凸变英雄BABA</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="迷域行者" src="images//谜域行者.png"/></a><h5><a href="">迷域行者</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="宿舍不日常" src="images//宿舍不日常.png"/></a><h5><a href="">宿舍不日常</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="画江湖之侠岚" src="images//画江湖之侠岚.png"/></a><h5><a href="">画江湖之侠岚</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="刺客伍六七" src="images//刺客伍六七.png"/></a><h5><a href="">刺客伍六七</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				<div class="animes" id="a0">     <!-- 最新 -->
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md2543"><img alt="狐妖小红娘" src="images//狐妖小红娘.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md2543">狐妖小红娘</a></h5><h6><ul><li>萌系</li><li>奇幻</li><li>恋爱</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md5430/?from=search&seid=563988463991385837"><img alt="凸变英雄BABA" src="images//凸变英雄BABA.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md5430/?from=search&seid=563988463991385837">凸变英雄BABA</a></h5><h6><ul><li>原创</li><li>战斗</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md5843/?from=search&seid=17182381470613188833"><img alt="迷域行者" src="images//谜域行者.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md5843/?from=search&seid=17182381470613188833">迷域行者</a></h5><h6><ul><li>推理</li><li>漫改</li><li>战斗</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md58152/?from=search&seid=7846056799143319148"><img alt="宿舍不日常" src="images//宿舍不日常.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md58152/?from=search&seid=7846056799143319148">宿舍不日常</a></h5><h6><ul><li>校园</li><li>日常</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md13232/?from=search&seid=8212602675692180918"><img alt="画江湖之侠岚" src="images//画江湖之侠岚.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md13232/?from=search&seid=8212602675692180918">画江湖之侠岚</a></h5><h6><ul><li>热血</li><li>战斗</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md6360/?from=search&seid=13632947901134241440"><img alt="刺客伍六七" src="images//刺客伍六七.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md6360/?from=search&seid=13632947901134241440">刺客伍六七</a></h5><h6><ul><li>热血</li><li>战斗</li><li>搞笑</li></ul></h6></div>
 				</div>
-				<div class="animes" id="a1">
+				<div class="animes" id="a1">     <!-- 周一 -->
 					<div class="anim"><a href=""><img alt="斗罗大陆2绝世唐门" src="images//斗罗大陆2绝世唐门.png"/></a><h5><a href="">斗罗大陆2绝世唐门</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="无聊诗社" src="images//无聊诗社.png"/></a><h5><a href="">无聊诗社</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 				</div>
-				<div class="animes" id="a2">
-					<div class="anim"><a href=""><img alt="凸变英雄BABA" src="images//凸变英雄BABA.png"/></a><h5><a href="">凸变英雄BABA</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				<div class="animes" id="a2">     <!-- 周二 -->
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md58152/?from=search&seid=7846056799143319148"><img alt="凸变英雄BABA" src="images//凸变英雄BABA.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md58152/?from=search&seid=7846056799143319148">凸变英雄BABA</a></h5><h6><ul><li>原创</li><li>战斗</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="实验品家庭" src="images//实验品家庭.png"/></a><h5><a href="">实验品家庭</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="宿舍不日常" src="images//宿舍不日常.png"/></a><h5><a href="">宿舍不日常</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md58152/?from=search&seid=7846056799143319148"><img alt="宿舍不日常" src="images//宿舍不日常.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md58152/?from=search&seid=7846056799143319148">宿舍不日常</a></h5><h6><ul><li>校园</li><li>日常</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="茶啊二中第四季" src="images//茶啊二中第四季.png"/></a><h5><a href="">茶啊二中 第四季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="寻师伏魔录第二季" src="images//寻师伏魔录第二季.png"/></a><h5><a href="">寻师伏魔录 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="琥珀虚颜" src="images//琥珀虚颜.png"/></a><h5><a href="">琥珀虚颜</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="Gon的旱獭第二季" src="images//Gon的旱獭第二季.png"/></a><h5><a href="">Gon的旱獭 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 				</div>
-				<div class="animes" id="a3">
+				<div class="animes" id="a3">     <!-- 周三 -->
 					<div class="anim"><a href=""><img alt="我家大师兄脑子有坑" src="images//我家大师兄脑子有坑.png"/></a><h5><a href="">我家大师兄脑子有坑</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="我是江小白" src="images//我是江小白.png"/></a><h5><a href="">我是江小白</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="万界仙踪" src="images//万界仙踪.png"/></a><h5><a href="">万界仙踪</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
@@ -214,9 +440,9 @@
 					<div class="anim"><a href=""><img alt="食神魂第二季" src="images//食神魂第二季.png"/></a><h5><a href="">食神魂第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="王者歪传" src="images//王者歪传.png"/></a><h5><a href="">王者歪传</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="吃鸡大作战" src="images//吃鸡大作战.png"/></a><h5><a href="">吃鸡大作战</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="刺客伍六七" src="images//刺客伍六七.png"/></a><h5><a href="">刺客伍六七</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md6360/?from=search&seid=13632947901134241440"><img alt="刺客伍六七" src="images//刺客伍六七.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md6360/?from=search&seid=13632947901134241440">刺客伍六七</a></h5><h6><ul><li>热血</li><li>战斗</li><li>搞笑</li></ul></h6></div>
 				</div>
-				<div class="animes" id="a4">
+				<div class="animes" id="a4">     <!-- 周四 -->
 					<div class="anim"><a href=""><img alt="我的逆天神器" src="images//我的逆天神器.png"/></a><h5><a href="">我的逆天神器</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="画江湖之换世门生" src="images//画江湖之换世门生.png"/></a><h5><a href="">画江湖之换世门生</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="银之守墓人" src="images//银之守墓人.png"/></a><h5><a href="">银之守墓人</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
@@ -226,34 +452,34 @@
 					<div class="anim"><a href=""><img alt="逆光之颤" src="images//逆光之颤.png"/></a><h5><a href="">逆光之颤</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="天行九歌" src="images//天行九歌.png"/></a><h5><a href="">天行九歌</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 				</div>
-				<div class="animes" id="a5">
-					<div class="anim"><a href=""><img alt="狐妖小红娘" src="images//狐妖小红娘.png"/></a><h5><a href="">狐妖小红娘</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+				<div class="animes" id="a5">     <!-- 周五 -->
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md2543"><img alt="狐妖小红娘" src="images//狐妖小红娘.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md2543">狐妖小红娘</a></h5><h6><ul><li>萌系</li><li>奇幻</li><li>恋爱</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="一人之第二季" src="images//一人之下第二季.png"/></a><h5><a href="">一人之下 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="全职高手 特别篇" src="images//全职高手特别篇.png"/></a><h5><a href="">全职高手 特别篇</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="梦塔·雪谜城" src="images//梦塔.png"/></a><h5><a href="">梦塔·雪谜城</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="画江湖之侠岚" src="images//画江湖之侠岚.png"/></a><h5><a href="">画江湖之侠岚</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md13232/?from=search&seid=8212602675692180918"><img alt="画江湖之侠岚" src="images//画江湖之侠岚.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md13232/?from=search&seid=8212602675692180918">画江湖之侠岚</a></h5><h6><ul><li>热血</li><li>战斗</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="灵契 第二季" src="images//灵契第二季.png"/></a><h5><a href="">灵契 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="峡谷重案组 第二季" src="images//峡谷重案组第二季.png"/></a><h5><a href="">峡谷重案组 第二季</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="哈哈滑小稽" src="images//哈哈滑小稽.png"/></a><h5><a href="">哈哈滑小稽</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="大食谱" src="images//大食谱.png" /><h5><a href="">大食谱</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="黄金屋" src="images//黄金屋.png"/></a><h5><a href="">黄金屋</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 				</div>
-				<div class="animes" id="a6">
+				<div class="animes" id="a6">	 <!-- 周六-->
 					<div class="anim"><a href=""><img alt="斗罗大陆2绝世唐门" src="images//斗罗大陆2绝世唐门.png"/></a><h5><a href="">斗罗大陆2绝世唐门</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="阴阳师?平安物语" src="images//阴阳师平安物语.png"/></a><h5><a href="">阴阳师·平安物语</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
-					<div class="anim"><a href=""><img alt="迷域行者" src="images//谜域行者.png"/></a><h5><a href="">迷域行者</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
+					<div class="anim"><a href="https://www.bilibili.com/bangumi/media/md5843/?from=search&seid=17182381470613188833"><img alt="迷域行者" src="images//谜域行者.png"/></a><h5><a href="https://www.bilibili.com/bangumi/media/md5843/?from=search&seid=17182381470613188833">迷域行者</a></h5><h6><ul><li>推理</li><li>漫改</li><li>战斗</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="妖神记" src="images//妖神记.png"/></a><h5><a href="">妖神记</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 					<div class="anim"><a href=""><img alt="二二二哈企" src="images//二二二哈企.png"/></a><h5><a href="">二二二哈企</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 
 
 				</div>
-				<div class="animes" id="a7">
+				<div class="animes" id="a7">     <!-- 周日 -->
 					<div class="anim"><a href=""><img alt="山海师" src="images//山海师.png"/></a><h5><a href="">山海师</a></h5><h6><ul><li>热血</li><li>搞笑</li></ul></h6></div>
 				</div>
 
 			</div>
 
-			<div class="intro">
+			<div class="intro">     <!-- 排行榜 -->
 				<ol>
 					<li><span>1</span><a href="">狐妖小红娘</a></li>
 					<li><span>2</span><a href="">我家大师兄脑子有坑</a></li>
@@ -268,16 +494,17 @@
 				</ol>
 			</div>
 			</div>
-			<div class="title-3">日番推荐<a href="">更多</a></div>
+			<div class="title-3">日番推荐<a href="">更多</a></div>     <!-- 日番推荐 -->
 			<div class="recom">
 				<div class="flex">
 					<div class="table"><div class="hovered"><h4>命运石之门</h4></div></div>
-					<div class="table"><div class="hovered"></div></div>
-					<div class="table"><div class="hovered"></div></div>
-					<div class="table"><div class="hovered"></div></div>
+					<div class="table"><div class="hovered"><h4>野良神</h4><p></p></div></div>
+					<div class="table"><div class="hovered"><h4>无头骑士异闻录</h4><p></p></div></div>
+					<div class="table"><div class="hovered"><h4>黑执事</h4></div><p></p></div>
 				</div>
 			</div>
 			</div>
+			<!-- 页脚 -->
 			<footer>
 			@@@@@@@@@@@@@@@@@@@@@@@@@
 			</footer>

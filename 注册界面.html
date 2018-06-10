@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册界面</title>
+	<script type = "text/javascript" >
+		// JavaScript Document
+
+		function showDesc(obj) {
+			var id = obj.name;
+			document.getElementById(id).style.display = "inline";
+		}
+		//输入框失去焦点时检验输入内容是否有效
+
+		function checkText(obj) {
+			//获取输入框的id值
+			var id = obj.name;
+			var text = document.getElementById(id.toString().toUpperCase()).value;
+
+			//判断是否为空
+			if (text.replace(/\s/g, "") == "") {
+				document.getElementById(id).innerHTML = "输入不能为空";
+			} else {
+				//组装方法
+				//取首字母转换为大写,其余不变
+				var firstChar = id.charAt(0).toString().toUpperCase();
+				//
+				var strsub = id.substring(1, id.length);
+				var strMethod = "check" + firstChar + strsub + "()";
+				var isTrue = eval(strMethod);
+				if (isTrue) {
+					document.getElementById(id).innerHTML = "输入有效";
+				}
+			}
+
+		}
+		
+
+		function checkPassword2() {
+			var id = document.getElementById("password");
+			var id2 = document.getElementById("password2");
+			var password = id.value;
+			var password2 = id2.value;
+			if (password != password2) {
+				document.getElementById(id.name).innerHTML = "密码不一致";
+				return false;
+			}
+			return true;
+		}
+
+		function chooseradio() {
+			if (document.all("xy").checked) {
+				document.all("xy").disabled = true;
+				document.all("ha").disabled = false;
+				document.all("gx").disabled = false;
+				document.all("mx").disabled = false;
+				document.all("tl").disabled = false;
+				document.all("lb").disabled = false;
+			}
+			if (document.all("ha").checked) {
+				document.all("xy").disabled = false;
+				document.all("ha").disabled = true;
+				document.all("gx").disabled = false;
+				document.all("mx").disabled = false;
+				document.all("tl").disabled = false;
+				document.all("lb").disabled = false;
+			}
+			if (document.all("gx").checked) {
+				document.all("xy").disabled = false;
+				document.all("ha").disabled = false;
+				document.all("gx").disabled = true;
+				document.all("mx").disabled = false;
+				document.all("tl").disabled = false;
+				document.all("lb").disabled = false;
+			}
+			if (document.all("mx").checked) {
+				document.all("xy").disabled = false;
+				document.all("ha").disabled = false;
+				document.all("gx").disabled = false;
+				document.all("mx").disabled = true;
+				document.all("tl").disabled = false;
+				document.all("lb").disabled = false
+			}
+			if (document.all("tl").checked) {
+				document.all("xy").disabled = false;
+				document.all("ha").disabled = false;
+				document.all("gx").disabled = false;
+				document.all("mx").disabled = false;
+				document.all("tl").disabled = true;
+				document.all("lb").disabled = false;
+			}
+			if (document.all("lb").checked) {
+				document.all("xy").disabled = false;
+				document.all("ha").disabled = false;
+				document.all("gx").disabled = false;
+				document.all("mx").disabled = false;
+				document.all("tl").disabled = false;
+				document.all("lb").disabled = true;
+			}
+		}
+
+		function checkmybutton_onclick_reg() {
+			if (document.all("usename").value == "") {
+				alert("手机号不能为空!");
+				document.all("usename").focus();
+				return false;
+			} else if (document.all("password").value == "") {
+				alert("密码不能为空!");
+				document.all("password").focus();
+				return false;
+			} else if (document.all("password2").value == "") {
+				alert("密码不能为空");
+				document.all("password2").focus();
+				return false;
+			} else if (document.all("usename").value != "" && document.all("password").value != "" && document.all("password2").value != "") {
+				alert("注册信息成功");
+			}
+
+		}
+	</script >
+</head>
+
+<body class="label2">
+<form id="form1">
+	<hr>
+    <table align="center" class="tablestyle">       <tr>
+    <td height="467">
+    <table >
+    <tr align="center">
+    <td width="419">
+    <font class="label1">&nbsp;&nbsp;注册</font>
+    </td>
+	</tr>
+		<tr align="center">
+        <td width="278" >&nbsp;&nbsp;&nbsp;&nbsp;手机号:<input type="tel" name="usename" onblur="checkusename_onblur(usename)" title="请输入用户名,为手机号，只能是数字">
+		<p > 输入密码: <input name="password" id="password" type="text" onfocus="showDesc(this)" onblur="checkText(this)" title="请输入密码,可以输入英文、汉字和字母">
+        </p>
+        <p >确认密码: <input name="password2" id="password2" type="text" onfocus="showDesc(this)" onblur="checkPassword2(this)" title="请输入与首次相同的密码">
+        </p>
+        
+        </td>
+        </tr>
+	<tr>
+        <td>
+        <p align="center">
+        <font class="p1">您最喜欢的动漫类型？</font>
+        </p>       
+        </td>
+        </tr>
+        
+		<tr>
+        <td align="center">
+        <input type="radio" name="radio1" id="xh" value="校园" onclick="chooseradio();return true;">校园
+		<input type="radio" name="radio1" id="ha" value="黑暗" onclick="chooseradio();return true;">黑暗
+		<input type="radio" name="radio1" id="gx" value="搞笑" onclick="chooseradio();return true;">搞笑
+        <p>
+		<input type="radio" name="radio1" id="mx" value="冒险" onclick="chooseradio();return true;">冒险
+		<input type="radio" name="radio1" id="tl" value="推理" onclick="chooseradio();return true;">推理
+		<input type="radio" name="radio1" id="lb" value="萝卜" onclick="chooseradio();return true;">萝卜
+        </p>
+		</td>
+        </tr>
+		
+		
+		<tr>
+        <td>
+        <p align="center">
+        <font class="p1" >您对动漫了解的年限是：</font>
+        </p>
+        </td>
+        </tr>
+        
+		<tr>
+        <td align="center">
+        年限:  <select name="select" id="select" style="color:#3169B5;">
+           <option value="0" selected="selected">
+           </option>
+           <option value="1">1年以下</option>
+           <option value="2">3-5年</option>
+           <option value="3">5年以上</option>
+           </select>
+		 </td>
+         </tr>
+					
+          <tr>
+          <td align="center">
+          <input type="submit" value="提交" title="提交注册" onclick="checkmybutton_onclick_reg();">
+		<input type="reset" value="重置" title="重新设置">
+         </td>
+         </tr>
+	   </table>
+      
+	   </tr> 
+  </table>
+       </form>
+       </body>
+</html>
